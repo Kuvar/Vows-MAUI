@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<Shell
+    x:Class="VowsApp.AppShell"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:views="clr-namespace:VowsApp.Views"
+    xmlns:local="clr-namespace:VowsApp"
+    Shell.FlyoutBehavior="Disabled" Shell.TabBarUnselectedColor="#C0C0C0" Shell.TabBarTitleColor="{StaticResource BlackVows}">
+    <TabBar>
+        <Tab Title="Food"
+             Icon="menu_food.svg">
+            <ShellContent ContentTemplate="{DataTemplate views:HomePage}" />
+        </Tab>
+        <Tab Title="Grocery"
+            Icon="menu_grocery.svg">
+            <ShellContent ContentTemplate="{DataTemplate views:BillSummaryPage}" />
+        </Tab>
+        <Tab Title="Bookings"
+            Icon="menu_bookings.svg">
+            <ShellContent ContentTemplate="{DataTemplate views:OrderConfirmationPage}" />
+        </Tab>
+        <Tab Title="Delivery"
+            Icon="menu_delivery.svg">
+            <ShellContent ContentTemplate="{DataTemplate views:SelectServiceListPage}" />
+        </Tab>
+        <Tab Title="Services"
+            Icon="menu_services.svg">
+            <ShellContent ContentTemplate="{DataTemplate views:AddressBookPage}" />
+        </Tab>
+    </TabBar>
+
+</Shell>

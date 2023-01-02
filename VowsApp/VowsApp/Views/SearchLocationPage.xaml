@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns:skia="clr-namespace:SkiaSharp.Extended.UI.Controls;assembly=SkiaSharp.Extended.UI" 
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
+             xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             BackgroundColor="{StaticResource BackgroundColor}"
+             xmlns:viewModels="clr-namespace:VowsApp.ViewModels"
+             xmlns:control="clr-namespace:VowsApp.Controls"
+             x:Class="VowsApp.Views.SearchLocationPage"
+             Title="SearchLocationPage">
+    <ContentPage.BindingContext>
+        <viewModels:SearchLocationPageViewModel/>
+    </ContentPage.BindingContext>
+    <Grid RowDefinitions="*">
+        <VerticalStackLayout Grid.Row="0" Padding="0,20"  Spacing="10">
+            <Grid ColumnDefinitions="48,*" ColumnSpacing="10" Margin="20,0">
+                <Border Grid.Column="0" Style="{StaticResource BackButtonBorder}">
+                    <Image Source="left_arrow_white.svg" HorizontalOptions="Center"/>
+                    <Border.GestureRecognizers>
+                        <TapGestureRecognizer Command="{Binding GoBackCommand}"/>
+                    </Border.GestureRecognizers>
+                </Border>
+                <Border Grid.Column="1" Style="{StaticResource EntryBorder}" Padding="0" Background="{StaticResource Tertiary}">
+                    <Grid ColumnSpacing="10" ColumnDefinitions="15,*" Padding="16,0">
+                        <Image Grid.Column="0" HorizontalOptions="End" Source="map_pin.svg" WidthRequest="16" />
+                        <control:BorderlessEntry Grid.Column="1" Text="{Binding LocationText}" VerticalOptions="Center" HorizontalOptions="FillAndExpand" />
+                    </Grid>
+                </Border>
+            </Grid>
+            <ScrollView>
+                <VerticalStackLayout>
+                    <CollectionView ItemsSource="{Binding Placemarks}" SelectionMode="None">
+                        <CollectionView.ItemTemplate>
+                            <DataTemplate>
+                                <StackLayout Padding="10">
+                                    <Label>
+                                        <Label.FormattedText>
+                                            <FormattedString>
+                                                <FormattedString.Spans>
+                                                    <Span Text="{Binding FeatureName, StringFormat='{0}, '}"/>
+                                                    <Span Text="{Binding Locality, StringFormat='{0}, '}"/>
+                                                    <Span Text="{Binding AdminArea, StringFormat='{0}, '}"/>
+                                                    <Span Text="{Binding PostalCode}"/>
+                                                </FormattedString.Spans>
+                                            </FormattedString>
+                                        </Label.FormattedText>
+                                    </Label>
+                                    <StackLayout.GestureRecognizers>
+                                        <TapGestureRecognizer 
+                                        Command="{Binding Source={RelativeSource AncestorType={x:Type viewModels:SearchLocationPageViewModel}}, Path=AddressSelectedCommand }"
+                                        CommandParameter="{Binding .}"/>
+                                    </StackLayout.GestureRecognizers>
+                                </StackLayout>
+                            </DataTemplate>
+                        </CollectionView.ItemTemplate>
+                    </CollectionView>
+                </VerticalStackLayout>
+            </ScrollView>
+        </VerticalStackLayout>
+        <StackLayout 
+                HorizontalOptions="FillAndExpand" 
+                VerticalOptions="FillAndExpand" 
+                BackgroundColor="#82000000"
+                IsVisible="{Binding IsBusy}">
+            <skia:SKLottieView 
+                        Source="loader.json" 
+                        RepeatCount="-1"
+                        HeightRequest="100"
+                        WidthRequest="100"
+                        HorizontalOptions="Center" 
+                        VerticalOptions="CenterAndExpand" />
+        </StackLayout>
+    </Grid>
+</ContentPage>

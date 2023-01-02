@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:viewModels="clr-namespace:VowsApp.ViewModels"
+             xmlns:control="clr-namespace:VowsApp.Controls"
+             x:Class="VowsApp.Views.SignInPage"
+             Shell.NavBarIsVisible="false"
+             BackgroundColor="White">
+    <ContentPage.BindingContext>
+        <viewModels:SignInPageViewModel/>
+    </ContentPage.BindingContext>
+    <ScrollView>
+        <Grid RowDefinitions="Auto">
+            <Image Source="page_bg.svg"/>
+            <Grid Grid.Row="0" RowDefinitions="300,auto">
+                <Grid Grid.Row="0" RowDefinitions="*,Auto">
+                    <Image Grid.Row="0" Source="logo.svg" HorizontalOptions="Center" VerticalOptions="Center"/>
+                    <Label Text="Login To Your Account" FontFamily="DMSansRegular" FontSize="20" TextColor="#09051C" HorizontalTextAlignment="Center" VerticalTextAlignment="End"/>
+                </Grid>
+                <Grid Grid.Row="1" RowDefinitions="Auto,140" Padding="20,40,20,0">
+                    <VerticalStackLayout Grid.Row="0" Spacing="20">
+                        <Border Style="{StaticResource EntryBorder}">
+                            <Border.Shadow>
+                                <Shadow Brush="#5A6CEA" Offset="20,20" Radius="40" Opacity="0.2"/>
+                            </Border.Shadow>
+                            <control:BorderlessEntry Text="" Placeholder="Enter mobile number" Keyboard="Numeric"/>
+                        </Border>
+                        <Label Text="Or Continue With" FontFamily="DMSansRegular" FontSize="12" TextColor="#09051C" HorizontalTextAlignment="Center"/>
+                        <Grid ColumnDefinitions="*,*,*,*">
+                            <Image Grid.Column="0" Source="apple.svg"/>
+                            <Image Grid.Column="1" Source="google.svg"/>
+                            <Image Grid.Column="2" Source="twiiter.svg"/>
+                            <Image Grid.Column="3" Source="facebook.svg"/>
+                        </Grid>
+                        <Label Text="Forgot Your Password?" TextDecorations="Underline" FontFamily="DMSansRegular" FontSize="12" TextColor="#09051C" HorizontalTextAlignment="Center"/>
+                    </VerticalStackLayout>
+                    <VerticalStackLayout Grid.Row="1" Spacing="10" VerticalOptions="End">
+                        <control:VowsButton ButtonText="Login" WidthRequest="200" ButtonCommand="{Binding NavigateToSignUpCommand}" />
+                        <StackLayout HorizontalOptions="CenterAndExpand" Orientation="Horizontal">
+                            <Label Text="Don’t you have an account? " FontFamily="DMSansRegular" FontSize="12" TextColor="#09051C" HorizontalTextAlignment="Center"/>
+                            <Label Text="Sign up" FontFamily="DMSansRegular" FontSize="12" TextColor="#09051C" HorizontalTextAlignment="Center" LineHeight="20" TextDecorations="Underline">
+                                <Label.GestureRecognizers>
+                                    <TapGestureRecognizer Command="{Binding NavigateToSignUpCommand}"/>
+                                </Label.GestureRecognizers>
+                            </Label>
+                        </StackLayout>
+                    </VerticalStackLayout>
+                </Grid>
+            </Grid>
+        </Grid>
+    </ScrollView>
+</ContentPage>

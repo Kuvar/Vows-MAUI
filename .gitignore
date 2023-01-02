@@ -1,0 +1,14 @@
+﻿################################################################################
+# This .gitignore file was automatically created by Microsoft(R) Visual Studio.
+################################################################################
+
+/VowsApp/VowsApp/VowsApp.keystore
+/VowsApp/Keystore/VowsApp.keyInfo
+/VowsApp/Keystore/VowsApp.keystore
+/VowsApp/.vs/ProjectEvaluation/vowsapp.metadata.v5.2
+/VowsApp/.vs/ProjectEvaluation/vowsapp.projects.v5.2
+/VowsApp/.vs/VowsApp/config/applicationhost.config
+/VowsApp/.vs/VowsApp/DesignTimeBuild/.dtbcache.v2
+/VowsApp/.vs/VowsApp/FileContentIndex/5d2af0c8-981b-47e5-b273-dcffa11d870c.vsidx
+/VowsApp/.vs/VowsApp/FileContentIndex/7e089710-5570-49cb-8a0b-83a6a0d8e88d.vsidx
+/VowsApp/VowsAPI/.config/dotnet-tools.json

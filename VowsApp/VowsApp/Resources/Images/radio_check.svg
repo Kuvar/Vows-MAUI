@@ -1,0 +1,13 @@
+<svg version="1.2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="55" height="55">
+	<title>image</title>
+	<style>
+		.s0 { fill: #42919a } 
+		.s1 { fill: none;stroke: #f4f4f4 } 
+		.s2 { fill: none;stroke: #ffffff;stroke-linecap: round;stroke-linejoin: round;stroke-width: 2 } 
+	</style>
+	<g id="Layer">
+		<path id="Layer" class="s0" d="m1 12c0-6.1 4.9-11 11-11 6.1 0 11 4.9 11 11 0 6.1-4.9 11-11 11-6.1 0-11-4.9-11-11z"/>
+		<path id="Layer" class="s1" d="m1.5 12c0-5.8 4.7-10.5 10.5-10.5 5.8 0 10.5 4.7 10.5 10.5 0 5.8-4.7 10.5-10.5 10.5-5.8 0-10.5-4.7-10.5-10.5z"/>
+	</g>
+	<path id="Layer" class="s2" d="m16 9l-5.5 5.5-2.5-2.5"/>
+</svg>

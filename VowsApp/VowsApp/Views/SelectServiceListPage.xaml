@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:DataType="viewModels:SelectServiceListPageViewModel"
+             BackgroundColor="{StaticResource BackgroundColor}"
+             xmlns:viewModels="clr-namespace:VowsApp.ViewModels"
+             xmlns:control="clr-namespace:VowsApp.Controls"
+             x:Class="VowsApp.Views.SelectServiceListPage"
+             Shell.NavBarIsVisible="false">
+    <ContentPage.BindingContext>
+        <viewModels:SelectServiceListPageViewModel/>
+    </ContentPage.BindingContext>
+    <ScrollView>
+        <VerticalStackLayout BackgroundColor="{StaticResource BackgroundColor}" Padding="0,20"  Spacing="10">
+            <Grid ColumnDefinitions="*,48" ColumnSpacing="10" Margin="20,0">
+                <Border Grid.Column="0" Style="{StaticResource EntryBorder}" Padding="0" Background="{StaticResource Tertiary}">
+                    <Grid ColumnSpacing="10" ColumnDefinitions="15,*,30" Padding="16,0">
+                        <Image Grid.Column="0" HorizontalOptions="End" Source="map_pin.svg" WidthRequest="16" />
+                        <control:BorderlessEntry Grid.Column="1" Text="9-Springboard, Pune" VerticalOptions="Center" HorizontalOptions="FillAndExpand" />
+                        <Image Grid.Column="2" HorizontalOptions="End" Source="down_arrow.svg" Aspect="AspectFill" HeightRequest="10" />
+                    </Grid>
+                </Border>
+                <Border Grid.Column="1" Style="{StaticResource UserProfileBorder}" Padding="0" Background="{StaticResource Tertiary}">
+                    <Image HorizontalOptions="End" Source="user.svg"/>
+                </Border>
+            </Grid>
+            <Grid ColumnDefinitions="*,55" ColumnSpacing="10" Margin="20,0">
+                <Border Grid.Column="0" Style="{StaticResource EntryBorder}" Padding="0" Background="{StaticResource Tertiary}">
+                    <Grid ColumnSpacing="10" ColumnDefinitions="18,*" Padding="16,5">
+                        <Image Grid.Column="0" HorizontalOptions="End" Source="magnifying_glass.svg" HeightRequest="21" WidthRequest="21" />
+                        <control:BorderlessEntry Grid.Column="1" Text="" HorizontalOptions="FillAndExpand" Placeholder="What do you want to order?" />
+                    </Grid>
+                </Border>
+                <Border Grid.Column="1" Style="{StaticResource EntryBorder}" Padding="0" Background="{StaticResource Tertiary}">
+                    <Image HorizontalOptions="End" Source="filter.svg"/>
+                </Border>
+            </Grid>
+            <Grid ColumnDefinitions="100,*" ColumnSpacing="7" Margin="20,0">
+                <Border Grid.Column="0" Style="{StaticResource EntryBorder}" HeightRequest="40" Padding="10,5" Background="{StaticResource Primary}">
+                    <Grid ColumnDefinitions="Auto,*,Auto">
+                        <Image Grid.Column="0" Source="filter_white.svg" />
+                        <Label Grid.Column="1" Text="Sort" HorizontalTextAlignment="Center" VerticalTextAlignment="Center" TextColor="#FFF" Padding="4,0,0,0"/>
+                        <Image Grid.Column="2" Source="down_arrow_white.svg" Aspect="AspectFill" />
+                    </Grid>
+                </Border>
+                <CollectionView Grid.Column="1" Margin="0,10" ItemsSource="{Binding QuickSearch}" >
+                    <CollectionView.ItemsLayout>
+                        <LinearItemsLayout ItemSpacing="7" Orientation="Horizontal" />
+                    </CollectionView.ItemsLayout>
+
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate>
+                            <StackLayout>
+                                <Border Style="{StaticResource EntryBorder}" HeightRequest="38" Padding="12,0" Background="{StaticResource Tertiary}">
+                                    <Label Text="{Binding .}" HorizontalTextAlignment="Center" VerticalTextAlignment="Center"/>
+                                </Border>
+                            </StackLayout>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
+            </Grid>
+            <Label Text="Home Clean" FontSize="18" TextColor="{StaticResource White}" FontFamily="DMSansBold" Margin="20,0"/>
+            <CollectionView x:Name="ServiceList" Margin="0,10,0,0" ItemsSource="{Binding Services}" HorizontalOptions="FillAndExpand">
+                <CollectionView.ItemsLayout>
+                    <LinearItemsLayout ItemSpacing="0" Orientation="Vertical" />
+                </CollectionView.ItemsLayout>
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <StackLayout x:Name="CarouselStack" Padding="20,5,20,15" HorizontalOptions="FillAndExpand">
+                            <Border Style="{StaticResource ServiceListCardViewBorder}" Margin="0" Padding="-5">
+                                <Border.Shadow>
+                                    <Shadow Brush="Black" Offset="20,20" Radius="25" Opacity="0.6" />
+                                </Border.Shadow>
+                                <Grid ColumnDefinitions="Auto,*" Margin="0" Padding="10">
+                                    <StackLayout Grid.Column="0" HeightRequest="143" WidthRequest="143">
+                                        <Image Source="cleaning.png" Aspect="AspectFit"/>
+                                    </StackLayout>
+                                    <Grid Grid.Column="1" RowDefinitions="Auto,*,25" Padding="10">
+                                        <Label Grid.Row="0" Text="Full House Cleaning" FontSize="22" FontAttributes="Bold"/>
+                                        <HorizontalStackLayout Grid.Row="1" Spacing="15">
+                                            <Border Style="{StaticResource EntryBorder}" Background="Transparent" HeightRequest="36" Stroke="{StaticResource Primary}">
+                                                <Label Text="INR 500" HorizontalTextAlignment="Center" VerticalTextAlignment="Center" TextColor="{StaticResource Primary}"/>
+                                            </Border>
+                                            <Label Text="INR 750" HorizontalTextAlignment="Center" TextDecorations="Strikethrough"  VerticalTextAlignment="Center" TextColor="{StaticResource Primary}"/>
+                                        </HorizontalStackLayout>
+                                        <StackLayout Grid.Row="2" Spacing="10" Orientation="Horizontal" HorizontalOptions="FillAndExpand">
+                                            <Label  Text="Whats included" FontSize="10" TextColor="{StaticResource Primary}" FontFamily="DMSansRegular" VerticalOptions="End" HorizontalOptions="Start" WidthRequest="90" TextDecorations="Underline">
+                                                <Label.GestureRecognizers>
+                                                    <TapGestureRecognizer CommandParameter="{Binding .}"
+                                                        Command="{Binding Path=BindingContext.WhatsIncludedComand, Source={x:Reference ServiceList}}"/>
+                                                </Label.GestureRecognizers>
+                                            </Label>
+                                            <Grid HeightRequest="25" HorizontalOptions="StartAndExpand">
+                                                <Button Text="Add" FontSize="12" Padding="0" WidthRequest="70"/>
+                                            </Grid>
+                                        </StackLayout>
+                                    </Grid>
+                                </Grid>
+                            </Border>
+                        </StackLayout>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+            <control:VowsButton ButtonText="Proceed To Payment" HeightRequest="46" Margin="20"/>
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>

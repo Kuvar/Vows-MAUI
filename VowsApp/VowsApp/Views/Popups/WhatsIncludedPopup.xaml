@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:viewmodels="clr-namespace:VowsApp.ViewModels"
+             x:DataType="viewmodels:WhatsIncludedPopupViewModel"
+             xmlns:control="clr-namespace:VowsApp.Controls"
+             x:Class="VowsApp.Views.WhatsIncludedPopup"
+             Shell.PresentationMode="ModalNotAnimated"
+             Shell.NavBarIsVisible="false">
+    <ContentPage.BindingContext>
+        <viewmodels:WhatsIncludedPopupViewModel/>
+    </ContentPage.BindingContext>
+    <Grid>
+        <Grid.GestureRecognizers>
+            <TapGestureRecognizer
+                Command="{Binding ClosePopUpCommand}">
+            </TapGestureRecognizer>
+        </Grid.GestureRecognizers>
+        <Border
+            x:Name="popupframe"
+            VerticalOptions="End"
+            HorizontalOptions="FillAndExpand"
+            Background="{StaticResource White}"
+            Stroke="{StaticResource Primary}"
+            Padding="16,10,16,30">
+            <Border.StrokeShape>
+                <RoundRectangle CornerRadius="25,25,0,0"/>
+            </Border.StrokeShape>
+            <VerticalStackLayout Spacing="16" Padding="15,10">
+                <Label Text="Details of the service" Style="{StaticResource DmSansLabelBlackVows14 }"/>
+                <Label Text="Full House Painting" Style="{StaticResource DmSansLabelBlackVows20 }" FontAttributes="Bold"/>
+                <HorizontalStackLayout>
+                    <Label Text="Reviews (5.0 " Style="{StaticResource DmSansLabelBlackVows14 }" FontAttributes="Bold"/>
+                    <Image Source="star.svg" HeightRequest="16" WidthRequest="16"/>
+                    <Label Text=")" Style="{StaticResource DmSansLabelBlackVows14 }" FontAttributes="Bold"/>
+                </HorizontalStackLayout>
+                <HorizontalStackLayout Spacing="10">
+                    <Label Text="INR. 499" Style="{StaticResource DmSansLabelPrimary14 }" FontAttributes="Bold" />
+                    <Label Text="INR. 1500" Style="{StaticResource DmSansLabelBlackVows10 }" FontAttributes="Bold" TextDecorations="Strikethrough"/>
+                </HorizontalStackLayout>
+                <Label Text="20* off on second item onwards" Style="{StaticResource DmSansLabelBlackVows14 }"/>
+                <BoxView Color="{StaticResource Primary}" HeightRequest="1" HorizontalOptions="FillAndExpand"/>
+                <Label TextType="Text" LineHeight="1.5" Text="Includes :&#10;Proin aliquam orci quis enim fringilla interdum.&#10;Aliquam varius ante a ligula pulvinar pretium.&#10;Duis sit amet diam auctor, eleifend tellus at, molestie quam.&#10;Cras laoreet velit non ipsum vulputate sollicitudin sodales vitae diam.&#10;Donec vitae felis posuere, elementum ex id, rhoncus leo.&#10;Nullam non tortor id odio consequat scelerisque.&#10;Donec vitae felis posuere, elementum ex id, rhoncus leo.&#10;Nullam non tortor id odio consequat scelerisque." HorizontalTextAlignment="Start">
+                </Label>
+                <Button Text="Close" HeightRequest="37" WidthRequest="98" Command="{Binding GoBackCommand}"/>
+            </VerticalStackLayout>
+        </Border>
+    </Grid>
+</ContentPage>

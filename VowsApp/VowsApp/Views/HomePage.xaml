@@ -1,0 +1,182 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns:skia="clr-namespace:SkiaSharp.Extended.UI.Controls;assembly=SkiaSharp.Extended.UI" 
+             xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             BackgroundColor="{StaticResource BackgroundColor}"
+             xmlns:viewModels="clr-namespace:VowsApp.ViewModels"
+             xmlns:control="clr-namespace:VowsApp.Controls"
+             x:DataType="viewModels:HomePageViewModel"
+             x:Class="VowsApp.Views.HomePage"
+             xmlns:view="clr-namespace:VowsApp.Views"
+             Shell.NavBarIsVisible="false">
+    <ContentPage.Content>
+        <Grid RowDefinitions="*" HorizontalOptions="FillAndExpand">
+            <ScrollView Grid.Row="0">
+                <StackLayout Orientation="Vertical" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" Padding="10,20"  >
+                    <Grid RowDefinitions="Auto,Auto" ColumnDefinitions="*,48" ColumnSpacing="8" RowSpacing="8">
+                        <Border Grid.Row="0" Grid.Column="0" Style="{StaticResource EntryBorder}" Padding="0" Background="{StaticResource Tertiary}">
+                            <Grid ColumnSpacing="10" ColumnDefinitions="15,*,30" Padding="16,0">
+                                <Image Grid.Column="0" HorizontalOptions="End" Source="map_pin.svg" WidthRequest="16" />
+                                <Label Grid.Column="1" Text="{Binding LocationText}" VerticalOptions="Center" HorizontalOptions="FillAndExpand" />
+                                <Image Grid.Column="2" HorizontalOptions="End" Source="down_arrow.svg" Aspect="AspectFill" HeightRequest="10" />
+                                <Grid.GestureRecognizers>
+                                    <TapGestureRecognizer Command="{Binding NavigateToLocationCommand}"/>
+                                </Grid.GestureRecognizers>
+                            </Grid>
+                        </Border>
+                        <Border Grid.Row="0" Grid.Column="1" Style="{StaticResource UserProfileBorder}">
+                            <Image HorizontalOptions="End" Source="user.svg"/>
+                        </Border>
+                        <Border Grid.Row="1" Grid.Column="0" Style="{StaticResource EntryBorder}" Padding="0" Background="{StaticResource Tertiary}">
+                            <Grid ColumnSpacing="10" ColumnDefinitions="18,*" Padding="16,5">
+                                <Image Grid.Column="0" HorizontalOptions="End" Source="magnifying_glass.svg" HeightRequest="21" WidthRequest="21" />
+                                <control:BorderlessEntry Grid.Column="1" Text="" HorizontalOptions="FillAndExpand" Placeholder="What do you want to order?" />
+                            </Grid>
+                        </Border>
+                        <Border Grid.Row="1" Grid.Column="1" Style="{StaticResource UserProfileBorder}">
+                            <Image HorizontalOptions="End" Source="filter.svg"/>
+                        </Border>
+                    </Grid>
+                    <Grid ColumnDefinitions="100,*" ColumnSpacing="7">
+                        <Border Grid.Column="0" Style="{StaticResource EntryBorder}" HeightRequest="40" Padding="10,5" Background="{StaticResource Primary}">
+                            <Grid ColumnDefinitions="Auto,*,Auto">
+                                <Image Grid.Column="0" Source="filter_white.svg" />
+                                <Label Grid.Column="1" Text="Sort" HorizontalTextAlignment="Center" VerticalTextAlignment="Center" TextColor="#FFF" Padding="4,0,0,0"/>
+                                <Image Grid.Column="2" Source="down_arrow_white.svg" Aspect="AspectFill" />
+                            </Grid>
+                        </Border>
+                        <CollectionView Grid.Column="1" Margin="0,10" ItemsSource="{Binding ListData}" >
+                            <CollectionView.ItemsLayout>
+                                <LinearItemsLayout ItemSpacing="7" Orientation="Horizontal" />
+                            </CollectionView.ItemsLayout>
+                            <CollectionView.ItemTemplate>
+                                <DataTemplate>
+                                    <StackLayout>
+                                        <Border Style="{StaticResource EntryBorder}" HeightRequest="38" Padding="12,0" Background="{StaticResource Tertiary}">
+                                            <Label Text="Women’s spa" HorizontalTextAlignment="Center" VerticalTextAlignment="Center"/>
+                                        </Border>
+                                    </StackLayout>
+                                </DataTemplate>
+                            </CollectionView.ItemTemplate>
+                        </CollectionView>
+                    </Grid>
+                    <CarouselView x:Name="AnimatedCarousel" ItemsSource="{Binding ListData}" PeekAreaInsets="90" Loop="True" PositionChanged="CarouselPositionChanged" HorizontalOptions="FillAndExpand">
+                        <CarouselView.ItemsLayout>
+                            <LinearItemsLayout Orientation="Horizontal" ItemSpacing="0" SnapPointsType="MandatorySingle" SnapPointsAlignment="Start"/>
+                        </CarouselView.ItemsLayout>
+                        <CarouselView.ItemTemplate>
+                            <DataTemplate>
+                                <StackLayout x:Name="CarouselStack" Padding="0,0,0,40" WidthRequest="180" HorizontalOptions="Start">
+                                    <Border Style="{StaticResource HomePageHorizontalCardViewBorder}" WidthRequest="150" Margin="5,18,5,0" Padding="-5" Shadow="{StaticResource CommonShadow}">
+                                        <Grid RowDefinitions="*,50">
+                                            <Image x:Name="CarouselImage" Grid.Row="0" Source="delivery.png" HeightRequest="180" Aspect="AspectFit"/>
+                                            <Label x:Name="CarouselLabel" Grid.Row="1" Text="Repair" Style="{StaticResource DmSansLabelBlackVows16}" FontAttributes="Bold" HorizontalTextAlignment="Center" VerticalTextAlignment="Center"/>
+                                        </Grid>
+                                    </Border>
+                                </StackLayout>
+                            </DataTemplate>
+                        </CarouselView.ItemTemplate>
+                    </CarouselView>
+                    <CarouselView ItemsSource="{Binding ListData}" Margin="0" HeightRequest="120" >
+                        <CarouselView.ItemsLayout>
+                            <LinearItemsLayout Orientation="Horizontal" ItemSpacing="8"/>
+                        </CarouselView.ItemsLayout>
+                        <CarouselView.ItemTemplate>
+                            <DataTemplate>
+                                <StackLayout VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand">
+                                    <Border Style="{StaticResource HomePageHorizontalCardViewBorder}" Background="{StaticResource Primary}" Margin="0" Padding="0">
+                                        <Grid ColumnDefinitions="Auto,*" HeightRequest="120">
+                                            <Image Grid.Column="0" Source="instant_services.png" Aspect="AspectFit" Margin="10,0,0,0"/>
+                                            <Grid Grid.Column="1" RowDefinitions="50,*" Padding="0,0,20,0">
+                                                <Label Grid.Row="0" Text="Try Our Instant Services" Style="{StaticResource DmSansBoldLabelWhite14}" FontAttributes="Bold" HorizontalTextAlignment="End" VerticalTextAlignment="Center"/>
+                                                <Label Grid.Row="1" Text="10-30 mins" Style="{StaticResource DmSansBoldLabelWhite36}" FontAttributes="Bold" HorizontalTextAlignment="End" VerticalTextAlignment="Center"/>
+                                            </Grid>
+                                        </Grid>
+                                    </Border>
+                                </StackLayout>
+                            </DataTemplate>
+                        </CarouselView.ItemTemplate>
+                    </CarouselView>
+                    <CollectionView x:Name="ServiceList" Margin="0,20,0,20" ItemsSource="{Binding ListData2}" HorizontalOptions="FillAndExpand">
+                        <CollectionView.ItemsLayout>
+                            <GridItemsLayout Orientation="Vertical" Span="3" HorizontalItemSpacing="0" VerticalItemSpacing="0" />
+                        </CollectionView.ItemsLayout>
+                        <CollectionView.ItemTemplate>
+                            <DataTemplate>
+                                <StackLayout HorizontalOptions="FillAndExpand" Margin="0" Padding="0" Spacing="0" Orientation="Vertical">
+                                    <Border Style="{StaticResource HomePageHorizontalCardViewBorder}" Padding="10" Margin="5" Background="{StaticResource White}">
+                                        <Border.Shadow>
+                                            <Shadow Brush="Black" Offset="5,7" Radius="10" Opacity="0.4" />
+                                        </Border.Shadow>
+                                        <Grid RowDefinitions="*,20" Margin="0" Padding="0" RowSpacing="10">
+                                            <Image Grid.Row="0" Source="cleaning.png" HeightRequest="64" WidthRequest="64"/>
+                                            <Label Grid.Row="1" Text="Cleaning" Style="{StaticResource DmSansLabelBlackVows10}" FontAttributes="Bold" HorizontalOptions="CenterAndExpand"/>
+                                        </Grid>
+                                    </Border>
+                                </StackLayout>
+                            </DataTemplate>
+                        </CollectionView.ItemTemplate>
+                    </CollectionView>
+                    <CarouselView ItemsSource="{Binding ListData2}" Margin="0" IndicatorView="indicatorView" HorizontalOptions="FillAndExpand">
+                        <CarouselView.ItemsLayout>
+                            <LinearItemsLayout Orientation="Horizontal"/>
+                        </CarouselView.ItemsLayout>
+                        <CarouselView.ItemTemplate>
+                            <DataTemplate>
+                                <Grid Padding="0" Margin="0">
+                                    <Image Source="carouse_bg.png" HeightRequest="180" HorizontalOptions="FillAndExpand" Margin="0" VerticalOptions="FillAndExpand"/>
+                                    <Grid ColumnDefinitions="*,*" Margin="0" Padding="0">
+                                        <StackLayout Grid.Column="1" Orientation="Vertical" VerticalOptions="Center" Spacing="10">
+                                            <Label Text="Full Pack" Style="{StaticResource DmSansBoldLabelWhite16}" HorizontalTextAlignment="Center"/>
+                                            <Label Text="50% OFF" Style="{StaticResource DmSansBoldLabelWhite24}" HorizontalTextAlignment="Center"/>
+                                            <Button CornerRadius="10" HeightRequest="30" Padding="5" WidthRequest="100" Text="Book Now" TextColor="{StaticResource Primary}" BackgroundColor="#F4F3FD"/>
+                                        </StackLayout>
+                                    </Grid>
+                                </Grid>
+                            </DataTemplate>
+                        </CarouselView.ItemTemplate>
+                    </CarouselView>
+                    <IndicatorView Margin="0,10" 
+                           IndicatorSize="10"
+                           x:Name="indicatorView"
+                           HorizontalOptions="Center"
+                           IndicatorColor="{StaticResource Tertiary}" 
+                           SelectedIndicatorColor="{StaticResource Primary}"/>
+                    <CollectionView ItemsSource="{Binding ListData}">
+                        <CollectionView.ItemsLayout>
+                            <GridItemsLayout Orientation="Horizontal" />
+                        </CollectionView.ItemsLayout>
+                        <CollectionView.ItemTemplate>
+                            <DataTemplate>
+                                <StackLayout HorizontalOptions="FillAndExpand" Margin="0" Padding="0" Spacing="0" Orientation="Vertical">
+                                    <Border Style="{StaticResource HomePageHorizontalCardViewBorder}" Padding="10" Margin="9,15" HeightRequest="160" WidthRequest="122">
+                                        <Border.Shadow>
+                                            <Shadow Brush="Black" Offset="10,10" Radius="20" Opacity="0.8" />
+                                        </Border.Shadow>
+                                        <Grid RowDefinitions="*,40" Margin="0" Padding="0" RowSpacing="10">
+                                            <Image Grid.Row="0" Source="cleaning.png" HeightRequest="64" WidthRequest="64"/>
+                                            <Label Grid.Row="1" Text="Bathroom Cleaning" Style="{StaticResource DmSansLabelBlackVows14}" FontAttributes="Bold" VerticalTextAlignment="Center" HorizontalTextAlignment="Center"/>
+                                        </Grid>
+                                    </Border>
+                                </StackLayout>
+                            </DataTemplate>
+                        </CollectionView.ItemTemplate>
+                    </CollectionView>
+                </StackLayout>
+            </ScrollView>
+            <StackLayout 
+                HorizontalOptions="FillAndExpand" 
+                VerticalOptions="FillAndExpand" 
+                BackgroundColor="#82000000"
+                IsVisible="{Binding IsBusy}">
+                <skia:SKLottieView 
+                        Source="loader.json" 
+                        RepeatCount="-1"
+                        HeightRequest="100"
+                        WidthRequest="100"
+                        HorizontalOptions="Center" 
+                        VerticalOptions="CenterAndExpand" />
+            </StackLayout>
+        </Grid>
+    </ContentPage.Content>
+</ContentPage>

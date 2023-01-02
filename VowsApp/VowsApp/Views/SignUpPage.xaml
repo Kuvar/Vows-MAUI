@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             BackgroundColor="{StaticResource BackgroundColor}"
+             xmlns:viewModels="clr-namespace:VowsApp.ViewModels"
+             xmlns:control="clr-namespace:VowsApp.Controls"
+             x:Class="VowsApp.Views.SignUpPage"
+             Shell.NavBarIsVisible="false">
+    <ContentPage.BindingContext>
+        <viewModels:SignUpPageViewModel/>
+    </ContentPage.BindingContext>
+    <ScrollView>
+        <Grid RowDefinitions="Auto">
+            <Image Source="page_bg.svg"/>
+            <Grid Grid.Row="0" RowDefinitions="300,auto">
+                <Grid Grid.Row="0" RowDefinitions="*,Auto">
+                    <Image Grid.Row="0" Source="logo.svg" HorizontalOptions="Center" VerticalOptions="Center"/>
+                    <Label Text="Sign Up For Free" FontFamily="DMSansRegular" FontSize="20" TextColor="#09051C" HorizontalTextAlignment="Center" VerticalTextAlignment="End"/>
+                </Grid>
+                <Grid Grid.Row="1" RowDefinitions="Auto,140" Padding="20,40,20,0">
+                    <VerticalStackLayout Grid.Row="0" Spacing="20">
+                        
+                        <Border Style="{StaticResource EntryBorder}">
+                            <Border.Shadow>
+                                <Shadow Brush="#5A6CEA" Offset="20,20" Radius="40" Opacity="0.2"/>
+                            </Border.Shadow>
+                            <Grid ColumnDefinitions="40,30,60,*">
+                                <Image Grid.Column="0" Source="flag_oman.png" HeightRequest="28" Aspect="AspectFit" HorizontalOptions="Start"/>
+                                <Image Grid.Column="1" Source="arrow_down.svg" VerticalOptions="Center" HeightRequest="20" WidthRequest="20">
+                                    <Image.GestureRecognizers>
+                                        <TapGestureRecognizer Command="{Binding OpenCountryListPopupCommand}"/>
+                                    </Image.GestureRecognizers>
+                                </Image>
+                                <Label Grid.Column="2" Text="+91" VerticalTextAlignment="Center" Margin="10,0"/>
+                                <control:BorderlessEntry Grid.Column="3" Text="" HorizontalOptions="FillAndExpand" Keyboard="Numeric" Placeholder="Mobile Number" />
+                            </Grid>
+                            
+                        </Border>
+                        <Grid ColumnDefinitions="50,*">
+                            <Image Grid.Column="0" Source="radio_uncheck.svg" HeightRequest="22" WidthRequest="22">
+                                <Image.Triggers>
+                                    <DataTrigger TargetType="Image" Binding="{Binding IsChecked}" Value="True">
+                                        <Setter Property="Source" Value="radio_check.svg"/>
+                                    </DataTrigger>
+                                </Image.Triggers>
+                                <Image.GestureRecognizers>
+                                    <TapGestureRecognizer Command="{Binding RadioButtonTabedCommand}"/>
+                                </Image.GestureRecognizers>
+                            </Image>
+                            <Label Grid.Column="1" Style="{StaticResource DmSansLabelBlackVows12}" HorizontalTextAlignment="Center">
+                                <Label.FormattedText>
+                                    <FormattedString>
+                                        <FormattedString.Spans>
+                                            <Span Text="By continuing, you agree to our"/>
+                                            <Span Text=" Terms of services," TextDecorations="Underline">
+                                                <Span.GestureRecognizers>
+                                                    <TapGestureRecognizer Command="{Binding NavigateToTermsofServicesCommand}" />
+                                                </Span.GestureRecognizers>
+                                            </Span>
+                                            <Span Text=" Privacy Policy" TextDecorations="Underline">
+                                                <Span.GestureRecognizers>
+                                                    <TapGestureRecognizer Command="{Binding NavigateToPrivacyPolicyCommand}"/>
+                                                </Span.GestureRecognizers>
+                                            </Span>
+                                            <Span Text=" and "/>
+                                            <Span Text="Content Policy" TextDecorations="Underline">
+                                                <Span.GestureRecognizers>
+                                                    <TapGestureRecognizer Command="{Binding NavigateToPrivacyPolicyCommand}"/>
+                                                </Span.GestureRecognizers>
+                                            </Span>
+                                        </FormattedString.Spans>
+                                    </FormattedString>
+                                </Label.FormattedText>
+                            </Label>
+                        </Grid>
+ 
+                    </VerticalStackLayout>
+                    <control:VowsButton Grid.Row="1" ButtonText="Create Account" WidthRequest="200" ButtonCommand="{Binding NavigateToCreateAccountCommand}" />
+                </Grid>
+            </Grid>
+        </Grid>
+    </ScrollView>
+</ContentPage>

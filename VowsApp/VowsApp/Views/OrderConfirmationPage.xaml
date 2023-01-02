@@ -1,0 +1,209 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage x:DataType="viewModels:OrderConfirmationPageViewModel"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
+             xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             BackgroundColor="{StaticResource BackgroundColor}"
+             xmlns:viewModels="clr-namespace:VowsApp.ViewModels"
+             xmlns:control="clr-namespace:VowsApp.Controls"
+             x:Class="VowsApp.Views.OrderConfirmationPage"
+             Shell.NavBarIsVisible="false">
+    <ContentPage.BindingContext>
+        <viewModels:OrderConfirmationPageViewModel/>
+    </ContentPage.BindingContext>
+    <ScrollView>
+        <VerticalStackLayout BackgroundColor="{StaticResource BackgroundColor}" Padding="0,20"  Spacing="10">
+            <Grid ColumnDefinitions="48,*,48" ColumnSpacing="10" Margin="20,0">
+                <Border Grid.Column="0" Style="{StaticResource BackButtonBorder}">
+                    <Image Source="left_arrow_white.svg" HorizontalOptions="Center"/>
+                    <Border.GestureRecognizers>
+                        <TapGestureRecognizer Command="{Binding GoBackCommand}"/>
+                    </Border.GestureRecognizers>
+                </Border>
+                <Border Grid.Column="2" Style="{StaticResource BackButtonBorder}" Background="{StaticResource Tertiary}">
+                    <Image HorizontalOptions="End" Source="user.svg" />
+                </Border>
+            </Grid>
+
+            <CollectionView x:Name="ServiceList" Margin="0,10,0,0" ItemsSource="{Binding Orders}" HorizontalOptions="FillAndExpand">
+                <CollectionView.ItemsLayout>
+                    <LinearItemsLayout ItemSpacing="0" Orientation="Vertical" />
+                </CollectionView.ItemsLayout>
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <StackLayout Orientation="Vertical" Padding="20,5,20,15" HorizontalOptions="FillAndExpand">
+                            <Border Style="{StaticResource ServiceListCardViewBorder}" Margin="0" Padding="-5">
+                                <Border.Shadow>
+                                    <Shadow Brush="Black" Offset="20,20" Radius="25" Opacity="0.6" />
+                                </Border.Shadow>
+                                <Grid ColumnDefinitions="Auto,*" Margin="0" Padding="10">
+                                    <StackLayout Grid.Column="0" HeightRequest="143" WidthRequest="143">
+                                        <Image Source="cleaning.png" Aspect="AspectFit"/>
+                                    </StackLayout>
+                                    <Grid Grid.Column="1" RowDefinitions="Auto,*,25" Padding="10">
+                                        <Label Grid.Row="0" Text="Full House Cleaning" FontSize="22" FontAttributes="Bold"/>
+                                        <HorizontalStackLayout Grid.Row="1" Spacing="15">
+                                            <Border Style="{StaticResource EntryBorder}" Background="Transparent" HeightRequest="36" Stroke="{StaticResource Primary}">
+                                                <Label Text="INR 500" HorizontalTextAlignment="Center" VerticalTextAlignment="Center" TextColor="{StaticResource Primary}"/>
+                                            </Border>
+                                            <Label Text="INR 750" HorizontalTextAlignment="Center" TextDecorations="Strikethrough"  VerticalTextAlignment="Center" TextColor="{StaticResource Primary}"/>
+                                        </HorizontalStackLayout>
+                                        <StackLayout Grid.Row="2" Spacing="10" Orientation="Horizontal" HorizontalOptions="FillAndExpand">
+                                            <Label  Text="Whats included" FontSize="10" TextColor="{StaticResource Primary}" FontFamily="DMSansRegular" VerticalOptions="End" HorizontalOptions="Start" WidthRequest="90" TextDecorations="Underline">
+                                                <Label.GestureRecognizers>
+                                                    <TapGestureRecognizer CommandParameter="{Binding .}"
+                                                        Command="{Binding Path=BindingContext.WhatsIncludedCommand, Source={x:Reference ServiceList}}"/>
+                                                </Label.GestureRecognizers>
+                                            </Label>
+                                            <Grid HeightRequest="25" HorizontalOptions="StartAndExpand" IsVisible="false">
+                                                <Button Text="Add" FontSize="12" Padding="0" WidthRequest="70"/>
+                                            </Grid>
+                                        </StackLayout>
+                                    </Grid>
+                                </Grid>
+                            </Border>
+                            <VerticalStackLayout Spacing="10" Margin="5,10">
+                                <StackLayout Orientation="Horizontal">
+                                    <Label Text="Schedule" Style="{StaticResource DmSansMediumLabelBlack12}"/>
+                                    <Image Source="calendar.svg" HeightRequest="12" WidthRequest="12"/>
+                                    <Label Text="Monday- 22 Mar-2022" Style="{StaticResource DmSansLabelBlackVows10}"/>
+                                    <Label Text="12:30 PM" Style="{StaticResource DmSansLabelBlackVows10}"/>
+                                </StackLayout>
+                                <StackLayout Orientation="Horizontal">
+                                    <Label Text="Service Partner : " Style="{StaticResource DmSansMediumLabelBlack12}"/>
+                                    <Label Text="Rock Johnson (4.5" Style="{StaticResource DmSansLabelBlackVows12}"/>
+                                    <Image Source="star.svg" HeightRequest="16" WidthRequest="16"/>
+                                    <Label Text=")" Style="{StaticResource DmSansLabelBlackVows12}"/>
+                                </StackLayout>
+                                <StackLayout Orientation="Horizontal" HorizontalOptions="FillAndExpand">
+                                    <Label Text="Partner Assigned" Style="{StaticResource DmSansMediumLabelBlack12}" VerticalOptions="CenterAndExpand"/>
+                                    <StackLayout HorizontalOptions="EndAndExpand" Orientation="Horizontal">
+                                        <Border Style="{StaticResource BackButtonBorder}" WidthRequest="70" HeightRequest="40" Padding="12,10">
+                                            <StackLayout Orientation="Horizontal" HorizontalOptions="FillAndExpand" Spacing="5">
+                                                <Image Source="call.svg" HeightRequest="12" WidthRequest="12" HorizontalOptions="Start"/>
+                                                <Label Text="Call" Style="{StaticResource DMSansMediumLabelWhite10}" HorizontalTextAlignment="End"/>
+                                            </StackLayout>
+                                        </Border>
+
+                                        <Border Style="{StaticResource BackButtonBorder}" WidthRequest="70" HeightRequest="40" Padding="12,10">
+                                            <StackLayout Orientation="Horizontal" HorizontalOptions="FillAndExpand" Spacing="5">
+                                                <Image Source="chat.svg" HeightRequest="12" WidthRequest="12" HorizontalOptions="Start"/>
+                                                <Label Text="Chat" Style="{StaticResource DMSansMediumLabelWhite10}" HorizontalTextAlignment="End"/>
+                                            </StackLayout>
+                                        </Border>
+                                    </StackLayout>
+                                </StackLayout>
+                            </VerticalStackLayout>
+                        </StackLayout>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+
+            <Grid RowDefinitions="25,35,20" Padding="5,0"  Margin="20,0">
+                <Label Grid.Row="0" Text="Service Location" FontSize="12" FontFamily="DMSansBold" TextColor="#000000" FontAttributes="Bold"/>
+                <Grid Grid.Row="1" ColumnDefinitions="18,*" ColumnSpacing="10">
+                    <Image Grid.Column="0" Source="map_pin_outline.svg" HeightRequest="16" WidthRequest="16"/>
+                    <Label Grid.Column="1" Text="Room 123, Brooklyn St, Kepler District" FontSize="14" VerticalTextAlignment="Center" />
+                </Grid>
+                <BoxView Grid.Row="2" Color="{StaticResource Primary}" HeightRequest="2" HorizontalOptions="FillAndExpand"/>
+            </Grid>
+
+            <Grid RowDefinitions="20,70,10" Padding="5,0"  Margin="20,0">
+                <Label Grid.Row="0" Text="Note" FontSize="12" FontFamily="DMSansBold" TextColor="#000000" FontAttributes="Bold"/>
+                <control:BorderlessEditor Grid.Row="1" Text="Anything for us to notice?\n Eg: Bathroom needs harder clean" HeightRequest="70" FontSize="14" VerticalTextAlignment="Center" />
+                <BoxView Grid.Row="2" Color="{StaticResource Primary}" HeightRequest="2" HorizontalOptions="FillAndExpand"/>
+            </Grid>
+
+            <Grid ColumnDefinitions="Auto,*" Padding="5,0,5,10"  Margin="20,0" ColumnSpacing="10">
+                <Label Grid.Column="0" Text="Promotion code" Style="{StaticResource DmSansBoldBlaclLabel12}" />
+                <Grid Grid.Column="1" ColumnDefinitions="*">
+                    <StackLayout Grid.Column="0" Spacing="8" HorizontalOptions="FillAndExpand" Orientation="Vertical">
+                        <HorizontalStackLayout Spacing="12">
+                            <Label Text="FIRST500" FontSize="14" VerticalTextAlignment="Center" HeightRequest="40" />
+                        </HorizontalStackLayout>
+                        <BoxView Color="{StaticResource Gray200}" HeightRequest="2" HorizontalOptions="FillAndExpand"/>
+                    </StackLayout>
+                </Grid>
+            </Grid>
+
+            <Border Style="{StaticResource CardViewBorder}"  Margin="20,0">
+                <Border.Shadow>
+                    <Shadow Brush="{StaticResource Primary}" Offset="30,30" Radius="40" Opacity="0.2"/>
+                </Border.Shadow>
+                <Grid RowDefinitions="50,Auto,30" Padding="20" BackgroundColor="#59FFFFFF">
+                    <VerticalStackLayout Grid.Row="0" Spacing="3">
+                        <Label Text="Bill Summary" Style="{StaticResource DmSansLabelBlackVows16}" HorizontalOptions="StartAndExpand"/>
+                        <BoxView Color="{StaticResource Primary}" HeightRequest="2" WidthRequest="46" VerticalOptions="End" HorizontalOptions="Start"/>
+                    </VerticalStackLayout>
+                    <VerticalStackLayout Grid.Row="1">
+                        <StackLayout Padding="10,0" Orientation="Horizontal" HorizontalOptions="FillAndExpand" Margin="0,0,0,5">
+                            <Label Text="Item Total" Style="{StaticResource DmSansBoldBlaclLabel14}" HorizontalOptions="StartAndExpand" VerticalOptions="End"/>
+                            <Label Style="{StaticResource DmSansLabelBlackVows14}" HorizontalOptions="End" VerticalOptions="End">
+                                <Label.FormattedText>
+                                    <FormattedString>
+                                        <FormattedString.Spans>
+                                            <Span Text="OMR " />
+                                            <Span Text="325"/>
+                                        </FormattedString.Spans>
+                                    </FormattedString>
+                                </Label.FormattedText>
+                            </Label>
+                        </StackLayout>
+                        <StackLayout Padding="10,0" Orientation="Horizontal" HorizontalOptions="FillAndExpand">
+                            <Label Text="Delivery charge" Style="{StaticResource DmSansLabelBlackVows14}" HorizontalOptions="StartAndExpand" VerticalOptions="End" TextColor="#828282"/>
+                            <Label Style="{StaticResource DmSansLabelBlackVows14}" HorizontalOptions="End" VerticalOptions="End">
+                                <Label.FormattedText>
+                                    <FormattedString>
+                                        <FormattedString.Spans>
+                                            <Span Text="OMR " TextColor="#828282"/>
+                                            <Span Text="05" TextColor="#828282"/>
+                                        </FormattedString.Spans>
+                                    </FormattedString>
+                                </Label.FormattedText>
+                            </Label>
+                        </StackLayout>
+                        <StackLayout Padding="10,0" Orientation="Horizontal" HorizontalOptions="FillAndExpand">
+                            <Label Text="Govt. taxes" Style="{StaticResource DmSansLabelBlackVows14}" HorizontalOptions="StartAndExpand" VerticalOptions="End" TextColor="#828282"/>
+                            <Label Style="{StaticResource DmSansLabelBlackVows14}" HorizontalOptions="End" VerticalOptions="End">
+                                <Label.FormattedText>
+                                    <FormattedString>
+                                        <FormattedString.Spans>
+                                            <Span Text="OMR " TextColor="#828282"/>
+                                            <Span Text="10" TextColor="#828282"/>
+                                        </FormattedString.Spans>
+                                    </FormattedString>
+                                </Label.FormattedText>
+                            </Label>
+                        </StackLayout>
+                        <StackLayout Padding="10,0" Orientation="Horizontal" HorizontalOptions="FillAndExpand">
+                            <Label Text="Donate" Style="{StaticResource DmSansLabelBlackVows14}" HorizontalOptions="StartAndExpand" VerticalOptions="End" TextColor="#828282"/>
+                            <Label Style="{StaticResource DmSansLabelBlackVows14}" HorizontalOptions="End" VerticalOptions="End">
+                                <Label.FormattedText>
+                                    <FormattedString>
+                                        <FormattedString.Spans>
+                                            <Span Text="OMR " TextColor="#828282"/>
+                                            <Span Text="02" TextColor="#828282"/>
+                                        </FormattedString.Spans>
+                                    </FormattedString>
+                                </Label.FormattedText>
+                            </Label>
+                        </StackLayout>
+                    </VerticalStackLayout>
+                    <StackLayout Grid.Row="2" Padding="10,0" Orientation="Horizontal" HorizontalOptions="FillAndExpand">
+                        <Label Text="Grand Total" Style="{StaticResource DmSansBoldBlaclLabel14}" HorizontalOptions="StartAndExpand" VerticalOptions="End"/>
+                        <Label HorizontalOptions="End" VerticalOptions="End" Style="{StaticResource DmSansLabelBlackVows14}">
+                            <Label.FormattedText>
+                                <FormattedString>
+                                    <FormattedString.Spans>
+                                        <Span Text="OMR "/>
+                                        <Span Text="350"/>
+                                    </FormattedString.Spans>
+                                </FormattedString>
+                            </Label.FormattedText>
+                        </Label>
+                    </StackLayout>
+                </Grid>
+            </Border>
+            
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>

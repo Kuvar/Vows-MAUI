@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             BackgroundColor="{StaticResource BackgroundColor}"
+             xmlns:viewModels="clr-namespace:VowsApp.ViewModels"
+             x:DataType="viewModels:AddressBookPageViewModel" 
+             xmlns:control="clr-namespace:VowsApp.Controls"
+             x:Class="VowsApp.Views.AddressBookPage"
+             Shell.NavBarIsVisible="false" Padding="0">
+    <ScrollView Margin="0" Padding="0">
+        <VerticalStackLayout Margin="0" Padding="0" Spacing="0" BackgroundColor="{StaticResource BackgroundColor}">
+            <Grid ColumnDefinitions="48,*,48" ColumnSpacing="10" Margin="15">
+                <Border Grid.Column="0" Style="{StaticResource BackButtonBorder}">
+                    <Image Source="left_arrow_white.svg" HorizontalOptions="Center"/>
+                    <Border.GestureRecognizers>
+                        <TapGestureRecognizer Command="{Binding GoBackCommand}"/>
+                    </Border.GestureRecognizers>
+                </Border>
+            </Grid>
+            <Label Text="Address Book" Style="{StaticResource DmSansLabelBlackVows22}" HorizontalOptions="StartAndExpand" Margin="15,10"/>
+            <Border BackgroundColor="White" StrokeShape="RoundRectangle 20,20,20,20" Stroke="#00FFFFFF" Margin="15,10">
+                <Border.Shadow>
+                    <Shadow Brush="Black" Offset="20,20" Radius="400" Opacity="0.4" />
+                </Border.Shadow>
+                <StackLayout x:Name="test" Orientation="Vertical" Margin="0,20,0,-20">
+
+                </StackLayout>
+            </Border>
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>
